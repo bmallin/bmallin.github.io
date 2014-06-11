@@ -42,8 +42,10 @@
                 currentIndex -= 1;
 
                 temporaryValue = array[currentIndex];
-                array[currentIndex] = array[randomIndex];
-                array[randomIndex] = temporaryValue;
+                if (temporaryValue) {
+                    array[currentIndex] = array[randomIndex];
+                    array[randomIndex] = temporaryValue;
+                }
             }
 
             return array;
