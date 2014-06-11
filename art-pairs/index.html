@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <style type="text/css">
+        body {
+            padding-top: 70px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <textarea id="input" class="form-control">Paste list here...</textarea>
+        
+        <br>
+        
+        <button id="go" class="btn btn-primary btn-block">Make pairs</button>
+        
+        <br>
+        
+        <pre id="output" class="hide"></pre>
+    </div>
+
+    <script>
+        "use strict";
+
+        function shuffle(array) {
+            var currentIndex = array.length, 
+                temporaryValue, 
+                randomIndex;
+
+            while (0 !== currentIndex) {
+
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+
+            return array;
+        }
+
+        $('#go').click(function(event) {
+            var people = $('#input').val().split('\n'),
+                html = '';
+
+            if (people.length % 2 !== 0) {
+                people.push('No partner.');
+            }
+
+            people = shuffle(people);
+
+            for (var i = people.length - 1; i >= 0; i -= 2) {
+                html += people[i] + ' - ' + people[i - 1] + '<br>';
+            };
+
+            $('#output').html('').html(html);
+            $('#output').removeClass('hide');
+        });
+    </script>
+</body>
+</html>
